@@ -1,7 +1,13 @@
 <h1>Top#index</h1>
 <center>
   <%= Time.now.strftime("%m/%d (%a)") %><br />
-  <%= h @meal.name %>
+  <%= h @meal.name %><br />
+  <%= h @message %>
+  <% if @eatable %>
+    <%= link_to "aaaa", :controller => "asf" %>
+  <% else %>
+    <%= link_to "bbbbb", :controller => "asf" %>
+  <% end %>
 </center>
 
 <%= link_to "翌日以降", :controller => "top", :action => "next", :keycode => @user.keycode %><br />
