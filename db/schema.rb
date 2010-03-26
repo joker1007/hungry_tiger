@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100325142716) do
+ActiveRecord::Schema.define(:version => 20100326161309) do
 
   create_table "admins", :force => true do |t|
     t.string   "account",    :null => false
@@ -41,6 +41,15 @@ ActiveRecord::Schema.define(:version => 20100325142716) do
   end
 
   add_index "meals", ["date", "type"], :name => "index_meals_on_date_and_type", :unique => true
+
+  create_table "unlikes", :force => true do |t|
+    t.string   "keyword",    :null => false
+    t.integer  "user_id",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "unlikes", ["user_id"], :name => "index_unlikes_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "name",                            :null => false

@@ -4,7 +4,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :name, :null => false
       t.string :room, :null => false
       t.boolean :no_meal_flag, :default => false
-      t.string :keyword, :null => false
+      t.string :keycode, :null => false
       t.timestamps
     end
   end
