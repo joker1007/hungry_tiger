@@ -6,7 +6,7 @@ class CreateMealStatuses < ActiveRecord::Migration
       t.date :date, :null => false
       t.boolean :rejected, :default => false
       t.boolean :sold, :default => false
-      t.string :type, :null => false
+      t.string :meal_type, :null => false
       t.integer :matched_user_id
       t.timestamps
     end

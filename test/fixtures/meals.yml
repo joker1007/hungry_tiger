@@ -1,7 +1,16 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-# one:
-#   column: value
-#
+niku:
+  id: 1
+  date: "2010-03-27"
+  meal_type: "Breakfast"
+  name: "にく"
+
+sakana:
+  id: 2
+  date: "2010-03-27"
+  meal_type: "Dinner"
+  name: "さかな"
+
 # two:
 #   column: value

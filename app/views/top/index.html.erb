@@ -1,2 +1,9 @@
 <h1>Top#index</h1>
-<p>Find me in app/views/top/index.html.erb</p>
+<center>
+  <%= h @meal.name %>
+</center>
+
+<%= @eatable_message %>
+
+<%= link_to "翌日以降", :controller => "top", :action => "next", :keycode => @user.keycode %>
+<%= link_to "欠食申請", :controller => "reject", :action => "list", :keycode => @user.keycode %>

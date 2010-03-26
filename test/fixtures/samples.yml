@@ -1,10 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-hashidate:
-  id: 1
-  name: "橋立"
-  room: "602"
-  keycode: "c3992e9a68c5ae12bd18488bc579b30d"
-
+# one:
+#   column: value
+#
 # two:
 #   column: value
