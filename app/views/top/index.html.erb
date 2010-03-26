@@ -1,10 +1,8 @@
 <h1>Top#index</h1>
-<<<<<<< HEAD:app/views/top/index.html.erb
 <center>
+  <%= Time.now.strftime("%m/%d (%a)") %><br />
   <%= h @meal.name %>
 </center>
 
-<%= @eatable_message %>
-
-<%= link_to "翌日以降", :controller => "top", :action => "next", :keycode => @user.keycode %>
+<%= link_to "翌日以降", :controller => "top", :action => "next", :keycode => @user.keycode %><br />
 <%= link_to "欠食申請", :controller => "reject", :action => "list", :keycode => @user.keycode %>
