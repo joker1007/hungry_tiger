@@ -1,16 +1,18 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
-niku:
+# Menu from: http://www.yamaguchi-u.net/cafe/
+
+B20100327:
   id: 1
   date: "2010-03-27"
   meal_type: "Breakfast"
-  name: "にく"
+  name: "朝食"
 
-sakana:
+D20100327:
   id: 2
   date: "2010-03-27"
   meal_type: "Dinner"
-  name: "さかな"
+  name: "鯖の生姜煮"
 
 # two:
 #   column: value

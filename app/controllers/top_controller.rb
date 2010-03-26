@@ -20,7 +20,7 @@ class TopController < ApplicationController
 
   def view_list
     meal_type = Time.now.hour >= 10 || Time.now.hour <= 1 ? "Dinner" : "Breakfast"
-    @meal = Meal.find(:first, :conditions => ["date = ? AND meal_type = ?", Date.today, meal_type])
+    @meals = Meal.find(:all, :conditions => ["(date = ? AND meal_type = ?) OR (date > ?)", Date.today, meal_type, Date.today])
   end
 
   private

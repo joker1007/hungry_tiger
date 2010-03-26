@@ -1,0 +1,14 @@
+<table border="1">
+  <tr>
+    <th>日付</th>
+    <th>メニュー</th>
+    <th>申請</th>
+  </tr>
+  <%= @meals.each do |meal| %>
+  <tr>
+    <td><%= meal.date.strftime("%m/%d (%a)") %></td>
+    <td><%= meal.name %></td>
+    <td>緊急欠食申請</td>
+  </tr>
+  <%= end %>
+</table>
