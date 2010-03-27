@@ -30,37 +30,27 @@
 </TABLE>
 </CENTER>
 <HR>
-<CENTER><B>～本日の夕食～</B><BR>
-<%= Time.now.strftime("%m/%d (%a)") %><BR>
-<%= h @meal.name %><BR>
+<CENTER>■ 通常欠食申請 ■<BR>
 <BR>
 <TABLE cellpadding="3" cellspacing="2" bgcolor="#ff8000">
-  <TBODY>
-    <TR>
-      <TD bgcolor="#ffffff"><FONT color="#ff0000"><%= h @message %></FONT><BR>
-      ⇒ <%= sell_apply_link(@user.id, @meal.id) %>
-      </TD>
-    </TR>
-  </TBODY>
+  <tr>
+      <TH bgcolor="#ffcc66">日付</TH>
+      <TH bgcolor="#ffcc66">メニュー</TH>
+      <TH bgcolor="#ffcc66">申請</TH>
+    </tr>
+  <% @meals.each do |meal| %>
+  <tr>
+    <td bgcolor="#ffffff"><%= meal.date.strftime("%m/%d (%a)") %></td>
+    <td bgcolor="#ffffff"><%= meal.name %></td>
+    <td bgcolor="#ffffff"><%= sell_apply_link(@user.id, meal.id) %></td>
+  </tr>	
+  <% end %>
 </TABLE>
 <BR>
 </CENTER>
 <HR>
-<P>
-■<%= link_to "翌日以降の緊急欠食申請", :controller => "top", :action => "view_list", :keycode => @user.keycode %><BR>
-■<%= link_to "通常欠食申請", :controller => "top", :action => "menu", :keycode => @user.keycode %><BR>
-■嫌いなメニューを設定</P>
-<HR>
-<CENTER>【過去の緊急欠食】<BR>
-<TABLE cellpadding="3" cellspacing="2" bgcolor="#008000">
-  <TBODY>
-    <TR>
-      <TD bgcolor="#ffffff">3/24(水) 【譲渡】 602 橋立友宏<BR>
-      3/25(木) 【譲受】 733 後藤雅樹</TD>
-    </TR>
-  </TBODY>
-</TABLE>
-</CENTER>
+
+<P align="center"><%= link_to("戻る", :controller => "top", :action => "index", :keycode => @user.keycode) %></P>
 <HR>
 <P align="center">(C) 2010 Team Yokohama.</P>
 </BODY>
