@@ -29,10 +29,26 @@
   </TBODY>
 </TABLE>
 <% if flash[:notice] %>
-  <p color="green"><%= flash[:notice] %></p>
+  <HR>
+  <TABLE cellpadding="3" cellspacing="2" bgcolor="#ff8000">
+    <TBODY>
+      <TR>
+        <TD bgcolor="#ffffff"><FONT color="green"><%= flash[:notice] %></FONT>
+        </TD>
+      </TR>
+    </TBODY>
+  </TABLE>
 <% end %>
 <% if flash[:error] %>
-  <p color="red"><%= flash[:error] %></p>
+  <HR>
+  <TABLE cellpadding="3" cellspacing="2" bgcolor="#ff8000">
+    <TBODY>
+      <TR>
+        <TD bgcolor="#ffbbbb"><FONT color="red"><%= flash[:error] %></FONT>
+        </TD>
+      </TR>
+    </TBODY>
+  </TABLE>
 <% end %>
 </CENTER>
 <HR>

@@ -1,13 +1,13 @@
 <CENTER>■ 通常欠食申請 ■<BR>
 <BR>
 
+<% form_tag({ :action => "apply"} ) do  -%>
 <TABLE cellpadding="3" cellspacing="2" bgcolor="#ff8000">
   <tr>
       <TH bgcolor="#ffcc66">日付</TH>
       <TH bgcolor="#ffcc66">メニュー</TH>
       <TH bgcolor="#ffcc66">欠食チェック</TH>
     </tr>
-<% form_tag({ :action => "apply"} ) do  -%>
   <% @meals.each_with_index do |meal, i| -%>
   <% @meal = meal -%>
   <%= hidden_field_tag("keycode", @user.keycode) %>
@@ -22,12 +22,11 @@
 </TABLE>
 <%= submit_tag "申請" %>
 <br>
-<br>
-<input name="reset" class="sbutton" value="リセット" type="reset" /> 
-
-
+<input name="reset" value="リセット" type="reset" />
 <% end -%>
 <BR>
+<BR>
+<%= will_paginate(@meals) %>
 </CENTER>
 <HR>
 
