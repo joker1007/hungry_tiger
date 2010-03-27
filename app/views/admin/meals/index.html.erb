@@ -2,12 +2,54 @@
 
 <form method="post" action="/admin/meals/update">
 <table>
-<% @meals.each_with_index do |meal, i| %>
   <tr>
-    <td><%= meal.date %></td>
-    <td><input name="d<%= i %>" type="text" size="50" value="<%= meal.name %>" /></td>
+    <td><%= @meals[0].date.strftime("%m/%d") %> （日）</td>
+    <td><input name="d0" type="text" size="50" value="<%= @meals[0].name %>" /></td>
   </tr>
-<% end %>
+  <tr>
+    <td><%= @meals[1].date.strftime("%m/%d") %> （月）</td>
+    <td><input name="b1" type="text" size="50" value="<%= @meals[1].name %>" readonly style="background-color:#EEEEEE" /></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input name="d1" type="text" size="50" value="<%= @meals[2].name %>" /></td>
+  </tr>
+  <tr>
+    <td><%= @meals[3].date.strftime("%m/%d") %> （火）</td>
+    <td><input name="b2" type="text" size="50" value="<%= @meals[3].name %>" readonly style="background-color:#EEEEEE" /></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input name="d2" type="text" size="50" value="<%= @meals[4].name %>" /></td>
+  </tr>
+  <tr>
+    <td><%= @meals[5].date.strftime("%m/%d") %> （水）</td>
+    <td><input name="b3" type="text" size="50" value="<%= @meals[5].name %>" readonly style="background-color:#EEEEEE" /></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input name="d3" type="text" size="50" value="<%= @meals[6].name %>" /></td>
+  </tr>
+  <tr>
+    <td><%= @meals[7].date.strftime("%m/%d") %> （木）</td>
+    <td><input name="b4" type="text" size="50" value="<%= @meals[7].name %>" readonly style="background-color:#EEEEEE" /></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input name="d4" type="text" size="50" value="<%= @meals[8].name %>" /></td>
+  </tr>
+  <tr>
+    <td><%= @meals[9].date.strftime("%m/%d") %> （金）</td>
+    <td><input name="b5" type="text" size="50" value="<%= @meals[9].name %>" readonly style="background-color:#EEEEEE" /></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td><input name="d5" type="text" size="50" value="<%= @meals[10].name %>" /></td>
+  </tr>
+  <tr>
+    <td><%= @meals[11].date.strftime("%m/%d") %> （土）</td>
+    <td><input name="b6" type="text" size="50" value="<%= @meals[11].name %>" readonly style="background-color:#EEEEEE" /></td>
+  </tr>
 </table>
 <input type="submit" value="更新" />
 <table>
@@ -18,6 +60,7 @@
 </table>
 
 <input type="hidden" name="week" value=<%= @week %> />
+<input type="hidden" name="fromDate" value="<%= @fromDate %>" />
 
 </form>
 

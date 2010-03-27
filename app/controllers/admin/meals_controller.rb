@@ -13,15 +13,28 @@ class Admin::MealsController < ApplicationController
     end
 
     # 食事リストを作成
-    fromDate = Date.today + weekShift * 7
+    @fromDate = Date.today + weekShift * 7 - Date.today.wday
     @meals = []
-    for i in 0..6
-      if !(aMeal = Meal.find(:first, :conditions => ["meal_type = 'Dinner' AND date = '#{fromDate + i}'"]))
-        aMeal = Meal.new()
-        aMeal.date = fromDate + i
-        aMeal.name = ""
+    for i in 0..6 # 0:日曜日～6：土曜日
+      # 朝食をリストに追加
+      if i != 0
+        if !(aMeal = Meal.find(:first, :conditions => ["meal_type = 'Breakfast' AND date = '#{@fromDate + i}'"]))
+          aMeal = Meal.new()
+          aMeal.date = @fromDate + i
+          aMeal.name = "朝食"
+        end
+        @meals.push(aMeal)
       end
-      @meals.push(aMeal)
+
+      # 夕食をリストに追加
+      if i != 6
+        if !(aMeal = Meal.find(:first, :conditions => ["meal_type = 'Dinner' AND date = '#{@fromDate + i}'"]))
+          aMeal = Meal.new()
+          aMeal.date = @fromDate + i
+          aMeal.name = ""
+        end
+        @meals.push(aMeal)
+      end
     end
 
     # 次週、先週のリンクを作成
@@ -48,11 +61,11 @@ class Admin::MealsController < ApplicationController
     for i in 0..6
 
       # 処理対象の日付を計算
-      cur_date = Date.today + params[:week].to_i * 7 + i
+      cur_date = Date.strptime(params[:fromDate], "%Y-%m-%d") + i
 
       # 入力に応じてMealテーブルを更新・追加
       if (tMeal = Meal.find(:first, :conditions => ["meal_type = 'Dinner' AND date = '#{cur_date}'"]))
-      # 該当日付のレコードが存在する場合、新規作成
+      # 該当日付のレコードが存在する場合、名前を変更
         tMeal.name = params["d#{i}"]
         tMeal.save
       else
