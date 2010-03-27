@@ -17,7 +17,7 @@
   <TBODY>
     <TR>
       <TD bgcolor="#E92020"><B><FONT size="+2" color="#ffffff">欠</FONT></B></TD>
-      <TD><B><FONT color="#E93A26">食</FONT><FONT size="+1" color="#EA532C">目</FONT><FONT size="+2" color="#EA6530">録</FONT></B></TD>
+      <TD><B><FONT color="#E93A26">食</FONT><FONT size="+1" color="#EA532C">目</FONT><FONT size="+2" color="#EA6530">録</FONT></B></T	D>
     </TR>
   </TBODY>
 </TABLE>
@@ -32,19 +32,23 @@
 <HR>
 <CENTER>■ 通常欠食申請 ■<BR>
 <BR>
+
 <TABLE cellpadding="3" cellspacing="2" bgcolor="#ff8000">
   <tr>
       <TH bgcolor="#ffcc66">日付</TH>
       <TH bgcolor="#ffcc66">メニュー</TH>
       <TH bgcolor="#ffcc66">申請</TH>
     </tr>
-  <% @meals.each do |meal| %>
+  <% form_tag({ :action => "apply"}, { :multipart => true*} ) do  -%>
+  <% @meals.each_with_index do |meal, i| -%>
+  <% @meal = meal -%>
+  
   <tr>
     <td bgcolor="#ffffff"><%= meal.date.strftime("%m/%d (%a)") %></td>
     <td bgcolor="#ffffff"><%= meal.name %></td>
-    <td bgcolor="#ffffff"><%= sell_apply_link(@user.id, meal.id) %></td>
+    <td bgcolor="#ffffff"><%= check_box(:public) %></td>
   </tr>	
-  <% end %>
+  <% end -%>
 </TABLE>
 <BR>
 </CENTER>
