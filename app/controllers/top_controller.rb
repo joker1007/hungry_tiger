@@ -20,7 +20,7 @@ class TopController < ApplicationController
 
   def view_list
     meal_type = Time.now.hour >= 10 || Time.now.hour <= 1 ? "Dinner" : "Breakfast"
-    @meals = Meal.find(:all, :conditions => ["(date = ? AND meal_type = ?) OR (date > ?)", Date.today, meal_type, Date.today])
+    @meals = Meal.paginate(:all, :conditions => ["(date = ? AND meal_type = ?) OR (date > ? AND date < ?)", Date.today, meal_type, Date.today, Date.today + 4], :page => params[:page])
   end
 
   private
