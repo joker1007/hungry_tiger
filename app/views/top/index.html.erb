@@ -38,14 +38,8 @@
   <TBODY>
     <TR>
       <TD bgcolor="#ffffff"><FONT color="#ff0000"><%= h @message %></FONT><BR>
-⇒ 
-<% if @eatable %>
-  <%= link_to "緊急欠食申請", :controller => "dummy" %>
-<% else %>
-  <%= link_to "緊急欠食がないか確認する", :controller => "dummy" %>
-<% end %>
-
-</TD>
+      ⇒ <%= sell_apply_link(@user.id, @meal.id) %>
+      </TD>
     </TR>
   </TBODY>
 </TABLE>
