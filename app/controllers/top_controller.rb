@@ -9,6 +9,8 @@ class TopController < ApplicationController
 
     if @eatable == "eatable"
       @message = "#{@user.name}さんは本日お食事予定です"
+    elsif @eatable == "re-eatable"
+      @message = "#{@user.name}さんは本日やっぱり食べる予定です"
     elsif @eatable == "rejected"
       @message = "#{@user.name}さんは本日欠食のため食べられません"
     elsif @eatable == "sold"

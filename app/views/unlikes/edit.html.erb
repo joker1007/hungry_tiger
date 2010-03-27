@@ -37,7 +37,6 @@
   <tr>
       <TH bgcolor="#ffcc66">1行に1キーワード設定</TH>
     </tr>
-  <%= @meals.each do |meal| %>
   <tr>
       <TD bgcolor="#ffffff" align="center">
         <textarea name="words" rows="12" cols="24"><%= h @unlikes %></textarea>
@@ -45,7 +44,6 @@
       <input type="submit" value="送信" />
       </TD>
     </tr>
-  <%= end %>
 </TABLE>
 <input type="hidden" name="keycode" value="<%= params[:keycode] %>">
 </form>

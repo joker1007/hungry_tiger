@@ -14,8 +14,7 @@ uritai:
   meal_id: 2
   date: "2010-03-27"
   meal_type: "Dinner"
-  status: "sold"
-  matched_user_id: 1
+  status: "rejected"
 
 
 # two:

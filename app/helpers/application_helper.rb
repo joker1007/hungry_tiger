@@ -9,10 +9,15 @@ module ApplicationHelper
   end
 
   def sell_apply_link(user_id, meal_id)
-    if MealStatus.eatable?(user_id, meal_id) == "eatable"
+    eatable_status = MealStatus.eatable?(user_id, meal_id)
+    if eatable_status == "eatable" || eatable_status == "re-eatable"
       link_to("緊急欠食申請", :controller => "apply", :action => "sell_confirm", :keycode => @user.keycode, :meal_id => meal_id)
     else
-      link_to("やっぱり食べたい", :controller => "apply", :action => "buy_confirm", :keycode => @user.keycode, :meal_id => meal_id)
+      if (buyable_count = MealStatus.buyable_count(meal_id)) > 0
+        link_to("やっぱり食べたい(#{buyable_count})", :controller => "apply", :action => "buy_confirm", :keycode => @user.keycode, :meal_id => meal_id)
+      else
+        "やっぱり食べたい(0)"
+      end
     end
   end
 end
