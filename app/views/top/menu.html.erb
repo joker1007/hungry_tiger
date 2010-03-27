@@ -11,6 +11,7 @@
   <% @meals.each_with_index do |meal, i| -%>
   <% @meal = meal -%>
   <%= hidden_field_tag("keycode", @user.keycode) %>
+  <%= hidden_field_tag("page", params[:page]) %>
   
   <tr>
     <td bgcolor="#ffffff"><%= meal.date.strftime("%m/%d (%a)") %></td>
