@@ -28,6 +28,12 @@
     </TR>
   </TBODY>
 </TABLE>
+<% if flash[:notice] %>
+  <p color="green"><%= flash[:notice] %></p>
+<% end %>
+<% if flash[:error] %>
+  <p color="red"><%= flash[:error] %></p>
+<% end %>
 </CENTER>
 <HR>
 
