@@ -6,7 +6,7 @@ kessyoku:
   meal_id: 1
   date: "2010-03-27"
   meal_type: "Breakfast"
-  rejected: true
+  status: "rejected"
 
 uritai:
   id: 2
@@ -14,7 +14,7 @@ uritai:
   meal_id: 2
   date: "2010-03-27"
   meal_type: "Dinner"
-  sold: true
+  status: "sold"
   matched_user_id: 1
 
 

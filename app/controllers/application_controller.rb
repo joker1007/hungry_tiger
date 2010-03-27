@@ -6,5 +6,11 @@ class ApplicationController < ActionController::Base
   #protect_from_forgery # See ActionController::RequestForgeryProtection for details
 
   # Scrub sensitive parameters from your log
-  # filter_parameter_logging :password
+ 
+  protected
+  def user_check
+    keycode = params[:keycode]
+    @user = User.find_by_keycode(keycode)
+  end
+ # filter_parameter_logging :password
 end

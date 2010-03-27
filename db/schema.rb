@@ -19,20 +19,18 @@ ActiveRecord::Schema.define(:version => 20100326173644) do
   end
 
   create_table "meal_statuses", :force => true do |t|
-    t.integer  "user_id",                            :null => false
-    t.integer  "meal_id",                            :null => false
-    t.date     "date",                               :null => false
-    t.boolean  "rejected",        :default => false
-    t.boolean  "sold",            :default => false
-    t.string   "meal_type",                          :null => false
+    t.integer  "user_id",         :null => false
+    t.integer  "meal_id",         :null => false
+    t.date     "date",            :null => false
+    t.string   "status",          :null => false
+    t.string   "meal_type",       :null => false
     t.integer  "matched_user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "meal_statuses", ["date"], :name => "index_meal_statuses_on_date"
-  add_index "meal_statuses", ["rejected"], :name => "index_meal_statuses_on_rejected"
-  add_index "meal_statuses", ["sold"], :name => "index_meal_statuses_on_sold"
+  add_index "meal_statuses", ["status"], :name => "index_meal_statuses_on_status"
   add_index "meal_statuses", ["user_id", "meal_id"], :name => "index_meal_statuses_on_user_id_and_meal_id", :unique => true
   add_index "meal_statuses", ["user_id"], :name => "index_meal_statuses_on_user_id"
 
