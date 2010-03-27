@@ -9,13 +9,15 @@ class TopController < ApplicationController
 
     if @eatable == "eatable"
       @message = "#{@user.name}さんは本日お食事予定です"
+    elsif @eatable == "re-eatable"
+      @message = "#{@user.name}さんは本日やっぱり食べる予定です"
     elsif @eatable == "rejected"
       @message = "#{@user.name}さんは本日欠食のため食べられません"
     elsif @eatable == "sold"
       @message = "#{@user.name}さんは本日緊急欠食のため食べられません"
     end
 
-    @meal_statuses = MealStatus.find(:all, :conditions => ["user_id = ? OR matched_user_id IS NOT NULL", @user.id], :limit => 10, :order => "date")
+    @meal_statuses = MealStatus.find(:all, :conditions => ["(user_id = ? AND matched_user_id IS NOT NULL) OR (matched_user_id = ?)", @user.id, @user.id], :limit => 10, :order => "date")
   end
 
   #緊急欠食申請
