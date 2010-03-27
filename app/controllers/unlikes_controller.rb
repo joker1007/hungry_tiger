@@ -1,45 +1,7 @@
 class UnlikesController < ApplicationController
-  # GET /unlikes
-  # GET /unlikes.xml
-  def index
-    @unlikes = Unlike.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @unlikes }
-    end
-  end
-
-  # GET /unlikes/1
-  # GET /unlikes/1.xml
-  def show
-    @unlike = Unlike.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @unlike }
-    end
-  end
-
-  # GET /unlikes/new
-  # GET /unlikes/new.xml
-  def new
-    @unlike = Unlike.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @unlike }
-    end
-  end
 
   # GET /unlikes/edit/?keycode=xxxxx
   def edit
-    # メッセージエリアの編集
-    if params[:message]
-      @message = "<div><font size=\"5\" color=\"red\">" + params[:message] + "</font></div>"
-    else
-      @message = ""
-    end
 
     keycode = params[:keycode]
     @keycode = keycode
@@ -50,49 +12,49 @@ class UnlikesController < ApplicationController
     @unlike.each {|u| @unlikes += (u.keyword + "\n")}
   end
 
-  # POST /unlikes
-  # POST /unlikes.xml
-  def create
-    @unlike = Unlike.new(params[:unlike])
+  # editから、form経由での呼び出しを想定
+  # updateに対応したviewは持たない
+  def update
+    
+    # フラグの初期化
+    okFlag = true
 
-    respond_to do |format|
-      if @unlike.save
-        flash[:notice] = 'Unlike was successfully created.'
-        format.html { redirect_to(@unlike) }
-        format.xml  { render :xml => @unlike, :status => :created, :location => @unlike }
-      else
-        format.html { render :action => "new" }
-        format.xml  { render :xml => @unlike.errors, :status => :unprocessable_entity }
+    # 以下、ユーザの現状のunlikeキーワード（Ａ）と
+    # Formに入力されたキーワード（Ｂ）を比較し、
+    # （Ａ）にのみ存在 => UnlikeのレコードをDelete
+    # （Ｂ）にのみ存在 => UnlikeにレコードをCreate
+
+    # キーワード配列（Ａ）を作成
+    @user = User.find_by_keycode(params[:keycode])
+    @unlike_current = Unlike.find_all_by_user_id(@user.id).map {|u| u.keyword}
+
+    # キーワード配列（Ｂ）を作成
+    @unlike_new = params[:words].split(/\r?\n/)
+
+    # 削除用、登録用のキーワード配列を作成
+    @unlike_to_del = @unlike_current - @unlike_new
+    @unlike_to_add = @unlike_new - @unlike_current
+
+    # 削除対象のレコードを削除する
+    Unlike.delete_all(conditions = ["user_id = #{@user.id} AND keyword IN ('#{@unlike_to_del.join("','")}')"])
+
+    # 作成対象のレコードを作成する
+    @unlike_to_add.each do |w|
+      if w.length > 0
+        @one_unlike = Unlike.new(params[:unlike])
+        @one_unlike.user_id = @user.id
+        @one_unlike.keyword = w
+        @one_unlike.save
       end
     end
+
+    # リダイレクト用のURLを編集
+    redirect_url = "/unlikes/edit/?" 
+    redirect_url += "keycode=" + params[:keycode]
+
+    # 結果メッセージの表示とリダイレクト
+    flash[:notice] = "更新されました"
+    redirect_to(redirect_url)
   end
 
-  # PUT /unlikes/1
-  # PUT /unlikes/1.xml
-  def update
-    okFlag = true
-    @user = User.find_by_keycode(params[:keycode])
-
-    if okFlag = true
-      flash[:notice] = '更新されました'
-      redirect_url = "/unlikes/edit/?" 
-      redirect_url += "keycode=" + params[:keycode]
-      redirect_to(redirect_url)
-    else
-      render :action => "edit"
-      render :xml => @unlike.errors, :status => :unprocessable_entity
-    end
-  end
-
-  # DELETE /unlikes/1
-  # DELETE /unlikes/1.xml
-  def destroy
-    @unlike = Unlike.find(params[:id])
-    @unlike.destroy
-
-    respond_to do |format|
-      format.html { redirect_to(unlikes_url) }
-      format.xml  { head :ok }
-    end
-  end
 end
