@@ -26,7 +26,7 @@ class TopController < ApplicationController
   
   #通常欠食申請
   def menu
-    @meals = Meal.paginate(:all, :conditions => "(date >= ? AND date < ?)", Date.today + 4, Date.today + 30], page => params[:page])
+    @meals = Meal.paginate(:all, :conditions => ["(date >= ? AND date < ?)", Date.today + 4, Date.today + 30], :page => params[:page])
   end
 
 end
