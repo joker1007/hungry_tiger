@@ -39,7 +39,7 @@
     <TR>
       <TD bgcolor="#ffffff"><FONT color="#ff0000">本当に欠食しますか?</FONT><BR>
 ⇒ 
-  <%= link_to "欠食にする", :action => "sell" %>
+<%= link_to "欠食にする", :action => "sell", :keycode => @user.keycode, :meal_id => @meal.id %>
 
 </TD>
     </TR>
