@@ -32,9 +32,22 @@ class UnlikesController < ApplicationController
     end
   end
 
-  # GET /unlikes/1/edit
+  # GET /unlikes/edit/?keycode=xxxxx
   def edit
-    @unlike = Unlike.find(params[:id])
+    # メッセージエリアの編集
+    if params[:message]
+      @message = "<div><font size=\"5\" color=\"red\">" + params[:message] + "</font></div>"
+    else
+      @message = ""
+    end
+
+    keycode = params[:keycode]
+    @keycode = keycode
+    @user = User.find_by_keycode(keycode)
+    @unlike = Unlike.find_all_by_user_id(@user.id)
+
+    @unlikes = ""
+    @unlike.each {|u| @unlikes += (u.keyword + "\n")}
   end
 
   # POST /unlikes
@@ -57,17 +70,17 @@ class UnlikesController < ApplicationController
   # PUT /unlikes/1
   # PUT /unlikes/1.xml
   def update
-    @unlike = Unlike.find(params[:id])
+    okFlag = true
+    @user = User.find_by_keycode(params[:keycode])
 
-    respond_to do |format|
-      if @unlike.update_attributes(params[:unlike])
-        flash[:notice] = 'Unlike was successfully updated.'
-        format.html { redirect_to(@unlike) }
-        format.xml  { head :ok }
-      else
-        format.html { render :action => "edit" }
-        format.xml  { render :xml => @unlike.errors, :status => :unprocessable_entity }
-      end
+    if okFlag = true
+      flash[:notice] = '更新されました'
+      redirect_url = "/unlikes/edit/?" 
+      redirect_url += "keycode=" + params[:keycode]
+      redirect_to(redirect_url)
+    else
+      render :action => "edit"
+      render :xml => @unlike.errors, :status => :unprocessable_entity
     end
   end
 
