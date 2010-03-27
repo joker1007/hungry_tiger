@@ -1,20 +1,11 @@
-<h1>Editing unlike</h1>
-
-<% form_for(@unlike) do |f| %>
-  <%= f.error_messages %>
-
+<h1>きらいなもの</h1>
+<%= @message %>
+<form action="/unlikes/update" method="post">
   <p>
-    <%= f.label :keyword %><br />
-    <%= f.text_field :keyword %>
+   <textarea name="words" rows="12" cols="24"><%= h @unlikes %></textarea>
   </p>
   <p>
-    <%= f.label :user_id %><br />
-    <%= f.text_field :user_id %>
+    <input type="submit" value="送信" />
   </p>
-  <p>
-    <%= f.submit 'Update' %>
-  </p>
-<% end %>
-
-<%= link_to 'Show', @unlike %> |
-<%= link_to 'Back', unlikes_path %>
+  <input type="hidden" name="keycode" value="<%= params[:keycode] %>">
+</form>
