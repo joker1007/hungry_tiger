@@ -28,5 +28,32 @@ class TopController < ApplicationController
   def menu
     @meals = Meal.paginate(:all, :conditions => ["(date >= ? AND date < ?)", Date.today + 4, Date.today + 30], :page => params[:page])
   end
-
+  
+  #欠食申請サブミット
+  def apply
+    meals = params[:meals]
+    notice = ""
+    
+    meals.each do |key, value|
+      meal = Meal.find(key)
+      meal_status_tmp = @user.meal_statuses.find(:first, :conditions => { :meal_id => meal.id})
+      if meal_status_tmp
+        #すでに同一のuser_idとmeal_idを持つmeal_statusesが存在する場合、更新を行う
+        meal_status = meal_status_tmp.update_attribute(:status, "rejected")
+      else
+        #同一のuser_idとmeal_idを持つmeal_statusesが存在しない場合
+        meal_status = @user.meal_statuses.create(:meal_id => meal.id, :date => meal.date, :meal_type => meal.meal_type, :status => "rejected")
+      end
+      
+      if meal_status
+        notice += "#{meal.date.strftime("%m/%d")} #{meal.name}を欠食にしました<br>"
+      else
+        flash[:error] = "欠食申請が失敗しました"
+        redirect_to :controller => "top", :action => "menu", :keycode => @user.keycode
+      end
+    end
+    
+    flash[:notice] = notice
+    redirect_to :controller => "top", :action => "menu", :keycode => @user.keycode
+  end
 end
