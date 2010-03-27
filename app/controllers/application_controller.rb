@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   def user_check
     keycode = params[:keycode]
     @user = User.find_by_keycode(keycode)
+    render(:text => "keycodeが不正です") and return unless @user
   end
  # filter_parameter_logging :password
 end

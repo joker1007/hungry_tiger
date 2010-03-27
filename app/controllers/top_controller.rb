@@ -29,12 +29,12 @@ class TopController < ApplicationController
   #緊急欠食申請
   def view_list
     meal_type = Time.now.hour >= 10 || Time.now.hour <= 1 ? "Dinner" : "Breakfast"
-    @meals = Meal.paginate(:all, :conditions => ["(date = ? AND meal_type = ?) OR (date > ? AND date < ?)", Date.today, meal_type, Date.today, Date.today + 4], :page => params[:page])
+    @meals = Meal.paginate(:all, :conditions => ["(date = ? AND meal_type = ?) OR (date > ? AND date < ?)", Date.today, meal_type, Date.today, limit_day], :page => params[:page])
   end
   
   #通常欠食申請
   def menu
-    @meals = Meal.paginate(:all, :conditions => ["(date >= ? AND date < ?)", Date.today + 4, Date.today + 30], :page => params[:page], :per_page => 8)
+    @meals = Meal.paginate(:all, :conditions => ["(date >= ? AND date < ?)", limit_day, Date.today + 30], :page => params[:page], :per_page => 8)
   end
   
   #欠食申請サブミット
@@ -78,5 +78,17 @@ class TopController < ApplicationController
     end
     flash[:notice] = notice
     redirect_to :controller => "top", :action => "menu", :keycode => @user.keycode
+  end
+
+  protected
+  def limit_day
+    work_day_count = 3
+    date = Date.today
+    
+    until work_day_count == 0
+      work_day_count -= 1 if !date.holiday?
+      date = date + 1
+    end
+    date
   end
 end
