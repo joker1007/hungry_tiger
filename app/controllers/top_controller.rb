@@ -77,6 +77,6 @@ class TopController < ApplicationController
       end
     end
     flash[:notice] = notice
-    redirect_to :controller => "top", :action => "menu", :keycode => @user.keycode
+    redirect_to :controller => "top", :action => "menu", :keycode => @user.keycode, :page => params[:page]
   end
 end
