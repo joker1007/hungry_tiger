@@ -1,11 +1,9 @@
 class UnlikesController < ApplicationController
+  before_filter :user_check
+  layout "mobile"
 
   # GET /unlikes/edit/?keycode=xxxxx
   def edit
-
-    keycode = params[:keycode]
-    @keycode = keycode
-    @user = User.find_by_keycode(keycode)
     @unlike = Unlike.find_all_by_user_id(@user.id)
 
     @unlikes = ""
@@ -25,7 +23,6 @@ class UnlikesController < ApplicationController
     # （Ｂ）にのみ存在 => UnlikeにレコードをCreate
 
     # キーワード配列（Ａ）を作成
-    @user = User.find_by_keycode(params[:keycode])
     @unlike_current = Unlike.find_all_by_user_id(@user.id).map {|u| u.keyword}
 
     # キーワード配列（Ｂ）を作成
@@ -50,7 +47,7 @@ class UnlikesController < ApplicationController
 
     # リダイレクト用のURLを編集
     redirect_url = "/unlikes/edit/?" 
-    redirect_url += "keycode=" + params[:keycode]
+    redirect_url += "keycode=" + @user.keycode
 
     # 結果メッセージの表示とリダイレクト
     flash[:notice] = "更新されました"
