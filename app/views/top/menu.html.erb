@@ -5,19 +5,22 @@
   <tr>
       <TH bgcolor="#ffcc66">日付</TH>
       <TH bgcolor="#ffcc66">メニュー</TH>
-      <TH bgcolor="#ffcc66">申請</TH>
+      <TH bgcolor="#ffcc66">欠食チェック</TH>
     </tr>
-  <% form_tag({ :action => "apply"}, { :multipart => true*} ) do  -%>
+<% form_tag({ :action => "apply"} ) do  -%>
   <% @meals.each_with_index do |meal, i| -%>
   <% @meal = meal -%>
+  <%= hidden_field_tag("keycode", @user.keycode) %>
   
   <tr>
     <td bgcolor="#ffffff"><%= meal.date.strftime("%m/%d (%a)") %></td>
     <td bgcolor="#ffffff"><%= meal.name %></td>
-    <td bgcolor="#ffffff"><%= check_box(:public) %></td>
+    <td bgcolor="#ffffff"><%= check_box_tag "meals[#{meal.id}]", "yes", false %></td>
   </tr>	
   <% end -%>
 </TABLE>
+<%= submit_tag "申請" %>
+<% end -%>
 <BR>
 </CENTER>
 <HR>
