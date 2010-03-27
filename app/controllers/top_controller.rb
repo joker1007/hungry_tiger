@@ -1,11 +1,15 @@
 class TopController < ApplicationController
+  # keycodeから@userを取得するフィルター
   before_filter :user_check
+
   layout "mobile"
 
   def index
+    # 10時から1時までは、夜メニューを表示する
     meal_type = Time.now.hour >= 10 || Time.now.hour <= 1 ? "Dinner" : "Breakfast"
     @meal = Meal.find(:first, :conditions => ["date = ? AND meal_type = ?", Date.today, meal_type])
 
+    # ステータスによって、トップページのメッセージを変える
     @eatable = MealStatus.eatable?(@user.id, @meal.id)
 
     if @eatable == "eatable"
@@ -18,6 +22,7 @@ class TopController < ApplicationController
       @message = "#{@user.name}さんは本日緊急欠食のため食べられません"
     end
 
+    # やり取りのログを表示するために、ステータスレコードを取得
     @meal_statuses = MealStatus.find(:all, :conditions => ["(user_id = ? AND matched_user_id IS NOT NULL) OR (matched_user_id = ?)", @user.id, @user.id], :limit => 10, :order => "date")
   end
 
