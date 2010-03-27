@@ -1,18 +1,24 @@
-<h1>Listing meals</h1>
+<h1>食事リスト</h1>
 
+<form method="post" action="/admin/meals/update">
 <table>
+<% @meals.each_with_index do |meal, i| %>
   <tr>
-  </tr>
-
-<% @meals.each do |meal| %>
-  <tr>
-    <td><%= link_to 'Show', meal %></td>
-    <td><%= link_to 'Edit', edit_meal_path(meal) %></td>
-    <td><%= link_to 'Destroy', meal, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= meal.date %></td>
+    <td><input name="d<%= i %>" type="text" size="50" value="<%= meal.name %>" /></td>
   </tr>
 <% end %>
 </table>
+<input type="submit" value="更新" />
+<table>
+  <tr>
+    <td><%= @prevWeek %></td>
+    <td><%= @nextWeek %></td>
+  </tr>
+</table>
+
+<input type="hidden" name="week" value=<%= @week %> />
+
+</form>
 
 <br />
-
-<%= link_to 'New meal', new_meal_path %>
