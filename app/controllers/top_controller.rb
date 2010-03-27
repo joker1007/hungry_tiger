@@ -17,7 +17,7 @@ class TopController < ApplicationController
       @message = "#{@user.name}さんは本日緊急欠食のため食べられません"
     end
 
-    @meal_statuses = MealStatus.find(:all, :conditions => ["user_id = ? OR matched_user_id IS NOT NULL", @user.id], :limit => 10, :order => "date")
+    @meal_statuses = MealStatus.find(:all, :conditions => ["(user_id = ? AND matched_user_id IS NOT NULL) OR (matched_user_id = ?)", @user.id, @user.id], :limit => 10, :order => "date")
   end
 
   #緊急欠食申請

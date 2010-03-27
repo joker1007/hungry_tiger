@@ -55,8 +55,14 @@
 <TABLE cellpadding="3" cellspacing="2" bgcolor="#008000">
   <TBODY>
     <TR>
-      <TD bgcolor="#ffffff">3/24(水) 【譲渡】 602 橋立友宏<BR>
-      3/25(木) 【譲受】 733 後藤雅樹</TD>
+      <TD bgcolor="#ffffff">
+        <% if @meal_statuses.empty? %>
+          Empty
+        <% end %>
+        <% @meal_statuses.each do |ms| %>
+          <%= trade_status(ms) %><BR>
+        <% end %>
+      </TD>
     </TR>
   </TBODY>
 </TABLE>

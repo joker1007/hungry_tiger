@@ -20,4 +20,14 @@ module ApplicationHelper
       end
     end
   end
+
+  def trade_status(meal_status)
+    if meal_status.user_id == @user.id
+      opposite_user = meal_status.matched_user
+      meal_status.date.strftime("%m/%d") + " 【譲渡】 #{opposite_user.room} #{opposite_user.name}"
+    else
+      opposite_user = meal_status.user
+      meal_status.date.strftime("%m/%d") + " 【譲受】 #{opposite_user.room} #{opposite_user.name}"
+    end
+  end
 end

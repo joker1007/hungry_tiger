@@ -5,7 +5,7 @@ class MealStatus < ActiveRecord::Base
 
   def self.eatable?(user_id, meal_id)
     ms = MealStatus.find_by_user_id_and_meal_id(user_id, meal_id)
-    ms2 = MealStatus.find_by_matched_user_id(user_id)
+    ms2 = MealStatus.find_by_meal_id_and_matched_user_id(meal_id, user_id)
     if ms.nil?
       "eatable"
     elsif ms2
