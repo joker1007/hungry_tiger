@@ -40,7 +40,7 @@ Rails::Initializer.run do |config|
   # config.i18n.default_locale = :de
 end
 
-require 'calendar/japanese/holiday'
+require "holiday"
 
 class Date
     include Calendar::Japanese::Holiday
