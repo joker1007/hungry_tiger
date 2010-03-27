@@ -29,10 +29,4 @@ class TopController < ApplicationController
     @meals = Meal.paginate(:all, :conditions => "(date >= ? AND date < ?)", Date.today + 4, Date.today + 30], page => params[:page])
   end
 
-  private
-  def user_check
-    keycode = params[:keycode]
-    @user = User.find_by_keycode(keycode)
-  end
-
 end
