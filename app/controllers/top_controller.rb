@@ -18,9 +18,15 @@ class TopController < ApplicationController
     @meal_statuses = MealStatus.find(:all, :conditions => ["user_id = ? OR matched_user_id IS NOT NULL", @user.id], :limit => 10, :order => "date")
   end
 
+  #緊急欠食申請
   def view_list
     meal_type = Time.now.hour >= 10 || Time.now.hour <= 1 ? "Dinner" : "Breakfast"
     @meals = Meal.paginate(:all, :conditions => ["(date = ? AND meal_type = ?) OR (date > ? AND date < ?)", Date.today, meal_type, Date.today, Date.today + 4], :page => params[:page])
+  end
+  
+  #通常欠食申請
+  def menu
+    @meals = Meal.paginate(:all, :conditions => "(date >= ? AND date < ?)", Date.today + 4, Date.today + 30], page => params[:page])
   end
 
   private
