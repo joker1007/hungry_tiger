@@ -1,5 +1,6 @@
 class TopController < ApplicationController
   before_filter :user_check
+  layout "mobile"
 
   def index
     meal_type = Time.now.hour >= 10 || Time.now.hour <= 1 ? "Dinner" : "Breakfast"

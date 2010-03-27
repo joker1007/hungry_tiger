@@ -1,5 +1,6 @@
 class ApplyController < ApplicationController
   before_filter :user_check
+  layout "mobile"
 
   def reject_confirm
   end
