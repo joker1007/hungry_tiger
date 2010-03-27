@@ -15,7 +15,8 @@
   <tr>
     <td bgcolor="#ffffff"><%= meal.date.strftime("%m/%d (%a)") %></td>
     <td bgcolor="#ffffff"><%= meal.name %></td>
-    <td bgcolor="#ffffff"><%= check_box_tag "meals[#{meal.id}]", "yes", false %></td>
+    <td bgcolor="#ffffff"> <%= hidden_field_tag "meals[#{meal.id}]", "no"  %>
+                           <%= check_box_tag "meals[#{meal.id}]", "yes", MealStatus.find_by_user_id_and_meal_id(@user.id, meal.id) ? true : false %> </td>
   </tr>	
   <% end -%>
 </TABLE>
