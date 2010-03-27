@@ -25,7 +25,7 @@
     <TR>
       <TD bgcolor="#ffffff">
         <% if @meal_statuses.empty? %>
-          Empty
+          なし
         <% end %>
         <% @meal_statuses.each do |ms| %>
           <%= trade_status(ms) %><BR>
